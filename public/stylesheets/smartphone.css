@@ -13,6 +13,11 @@ h2 span, section h3
 	display:none;
 }
 
+h2
+{
+	font-size: large;
+}
+
 body 
 {
 	font-size:xx-large;
@@ -21,4 +26,21 @@ body
 footer, input
 {
 	font-size:large;
+}
+
+#creditos iframe
+{
+	width:310px;
+	height:215px;
+}
+
+#creditos img
+{
+	width:310px;
+}
+
+#creditos
+{
+	margin:0px 0px 0px 0px;
+	padding:0px;
 }

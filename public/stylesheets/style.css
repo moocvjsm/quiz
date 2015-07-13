@@ -24,3 +24,10 @@ footer {
 }
 
 nav span { margin: 0px 10px 0px 0px;}
+
+#creditos iframe
+{
+	width:560px;
+	height:315px;
+	display:inline;
+}
