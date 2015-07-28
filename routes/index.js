@@ -8,6 +8,8 @@ router.get('/', function(req, res) {
   res.render('index', { title: 'Quiz' });
 });
 
+router.param('quizId', quizController.load); // autoload :quizId
+
 // definicion de las rutas /quizes
 router.get('/quizes', quizController.index);
 router.get('/quizes/:quizId(\\d+)', quizController.show);
@@ -22,3 +24,4 @@ router.get('/author', function(req, res) {
 
 
 module.exports = router;
+
