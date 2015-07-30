@@ -31,3 +31,5 @@ nav span { margin: 0px 10px 0px 0px;}
 	height:315px;
 	display:inline;
 }
+
+#ErrorMsgs           { color: #f61; font-size: smaler}
