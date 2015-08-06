@@ -31,9 +31,24 @@ exports.show = function(req, res) {
 
 // GET /quizes
 exports.index = function(req, res) {
-  models.Quiz.findAll().then(
+
+  var searchValue = (req.query.search || "Texto de busqueda");
+  console.log(req.query.search);
+  var searchText = '%';
+  if(req.query.search)
+  {
+    searchText += req.query.search + '%';
+  }
+
+
+
+  models.Quiz.findAll(
+  {
+    where : ['lower(pregunta) like lower(?)', searchText],
+    order: 'pregunta asc'
+  }).then(
     function(quizes) {
-      res.render('quizes/index', { quizes: quizes, errors: []});
+      res.render('quizes/index', { quizes: quizes, searchPattern: searchValue, errors: []});
     }).catch(function(error) {next(error)});
 };
 
