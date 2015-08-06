@@ -37,7 +37,8 @@ exports.index = function(req, res) {
   var searchText = '%';
   if(req.query.search)
   {
-    searchText += req.query.search + '%';
+    var searchCambiada = req.query.search.replace(/ /g,'%');
+    searchText += searchCambiada + '%';
   }
 
 
