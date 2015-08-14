@@ -50,7 +50,7 @@ exports.show = function(req, res) {
 exports.index = function(req, res) {
 
   var searchValue = (req.query.search || "Texto de busqueda");
-  console.log(req.query.search);
+  console.log('req.query.search:' + req.query.search);
   var searchText = '%';
   if(req.query.search)
   {

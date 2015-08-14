@@ -32,14 +32,67 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Helpers dinamicos:
 app.use(function(req, res, next) {
+  // comprobamos la variable de session
+/*  if(!req.session.ultFecha)
+  {
+    req.session.ultFecha = new Date();
+    console.log(req.session.ultFecha);
+  }
+  else
+  {
+    var dtCurrent = new Date();
+    var dtOld = req.session.ultFecha;
+    var dtDiff = Math.ceil(Math.abs(dtCurrent.getTime() - dtOld.getTime()) / (60 * 1000));
+    console.log('Tiempo:' + dtDiff);
+  } */
+
   // guardar path en session.redir para despues de login
   if (!req.path.match(/\/login|\/logout/)) {
+  //if (req.method === 'GET' && !req.path.match(/\/login|\/logout/)) {    
     req.session.redir = req.path;
   }
 
   // Hacer visible req.session en las vistas
   res.locals.session = req.session;
   next();
+});
+
+
+app.use(function(req, res, next) {
+  console.log('ultFecha_:' + req.session);
+  console.log('ultFecha:' + req.session.ultFecha);
+  if(req.session.user)
+  {
+    if(!req.session.ultFecha)
+    {
+        // guardamos la ultima fecha de acceso
+        req.session.ultFecha = (new Date()).toString();
+        console.log('Fecha Inicial:' + req.session.ultFecha);
+    }
+    else
+    {
+      var dtCurrent = new Date();
+      console.log('dtOld_:' + req.session.ultFecha);
+      var dtOld = new Date(req.session.ultFecha);
+      console.log('dtOld:' + dtOld);
+      var dtDiff = (dtCurrent.getTime() - dtOld.getTime()) / (60 * 1000);
+      console.log('Tiempo:' + dtDiff);
+
+      if(dtDiff > 0.15)
+      {
+        console.log('Borrar Sesion:' + dtDiff);
+        //req.session.destroy(req, res);
+        delete req.session.ultFecha;
+        delete req.session.user;
+      }
+      else
+      {
+        req.session.ultFecha = (new Date()).toString();
+        console.log('Fecha Actual:' + req.session.ultFecha);
+      }
+    }
+  }
+  next(); 
 });
 
 app.use('/', routes);
