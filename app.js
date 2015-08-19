@@ -63,6 +63,7 @@ app.use(function(req, res, next) {
   console.log('ultFecha:' + req.session.ultFecha);
   if(req.session.user)
   {
+    // No existe la ultima fecha de acceso, iniciado logon
     if(!req.session.ultFecha)
     {
         // guardamos la ultima fecha de acceso
@@ -72,13 +73,13 @@ app.use(function(req, res, next) {
     else
     {
       var dtCurrent = new Date();
-      console.log('dtOld_:' + req.session.ultFecha);
+      //console.log('dtOld_:' + req.session.ultFecha);
       var dtOld = new Date(req.session.ultFecha);
-      console.log('dtOld:' + dtOld);
+      //console.log('dtOld:' + dtOld);
       var dtDiff = (dtCurrent.getTime() - dtOld.getTime()) / (60 * 1000);
-      console.log('Tiempo:' + dtDiff);
+      console.log('Tiempo inactivo:' + dtDiff);
 
-      if(dtDiff > 0.15)
+      if(dtDiff > 2)
       {
         console.log('Borrar Sesion:' + dtDiff);
         //req.session.destroy(req, res);

@@ -34,6 +34,7 @@ var Quiz = sequelize.import(quiz_path);
 var comment_path = path.join(__dirname,'comment');
 var Comment = sequelize.import(comment_path);
 
+
 // Establecemos las relaciones Quiz -< Comment (1:N) y un Comment pertenece a Quiz
 Comment.belongsTo(Quiz);
 Quiz.hasMany(Comment);
@@ -41,6 +42,7 @@ Quiz.hasMany(Comment);
 
 exports.Quiz = Quiz; // exportar definición de tabla Quiz
 exports.Comment = Comment; // exportar la definición de la tabla Comment
+
 
 // sequelize.sync() crea e inicializa tabla de preguntas en DB
 sequelize.sync().then(function() {
@@ -64,4 +66,7 @@ sequelize.sync().then(function() {
       .then(function(){console.log('Base de datos inicializada')});
      }
   });
+
+
+
 }); 
